@@ -9,7 +9,7 @@
 
 **A premium, production-quality scientific calculator with stunning glassmorphism design, dark/light themes, and interactive sound effects.**
 
-[Live Demo](#https://quantum-calc-pi.vercel.app/) • [Features](#features) • [Installation](#installation) • [Usage](#usage)
+[Live Demo](#) • [Features](#features) • [Installation](#installation) • [Usage](#usage)
 
 </div>
 
