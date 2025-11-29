@@ -1,0 +1,752 @@
+/* ===================================
+   CSS VARIABLES & THEME SYSTEM
+   =================================== */
+:root {
+    /* Light Theme Colors */
+    --light-bg-primary: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+    --light-bg-secondary: rgba(255, 255, 255, 0.2);
+    --light-glass-bg: rgba(255, 255, 255, 0.45);
+    --light-glass-border: rgba(255, 255, 255, 0.6);
+    --light-text-primary: #2d1b4e;
+    --light-text-secondary: #6b4e8a;
+    --light-display-bg: rgba(255, 255, 255, 0.5);
+    --light-btn-bg: rgba(255, 255, 255, 0.4);
+    --light-btn-hover: rgba(255, 255, 255, 0.6);
+    --light-btn-active: rgba(255, 255, 255, 0.75);
+    --light-operator-bg: rgba(255, 159, 122, 0.4);
+    --light-equals-bg: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+    --light-shadow: rgba(0, 0, 0, 0.15);
+    --light-glow: rgba(255, 107, 107, 0.5);
+
+    /* Dark Theme Colors */
+    --dark-bg-primary: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+    --dark-bg-secondary: rgba(255, 255, 255, 0.05);
+    --dark-glass-bg: rgba(255, 255, 255, 0.08);
+    --dark-glass-border: rgba(255, 255, 255, 0.15);
+    --dark-text-primary: #e4e4e7;
+    --dark-text-secondary: #a1a1aa;
+    --dark-display-bg: rgba(0, 0, 0, 0.3);
+    --dark-btn-bg: rgba(255, 255, 255, 0.08);
+    --dark-btn-hover: rgba(255, 255, 255, 0.15);
+    --dark-btn-active: rgba(255, 255, 255, 0.25);
+    --dark-operator-bg: rgba(139, 92, 246, 0.25);
+    --dark-equals-bg: linear-gradient(135deg, #8b5cf6 0%, #6366f1 100%);
+    --dark-shadow: rgba(0, 0, 0, 0.3);
+    --dark-glow: rgba(139, 92, 246, 0.5);
+}
+
+/* Apply Dark Theme by Default */
+body.dark-theme {
+    --bg-primary: var(--dark-bg-primary);
+    --bg-secondary: var(--dark-bg-secondary);
+    --glass-bg: var(--dark-glass-bg);
+    --glass-border: var(--dark-glass-border);
+    --text-primary: var(--dark-text-primary);
+    --text-secondary: var(--dark-text-secondary);
+    --display-bg: var(--dark-display-bg);
+    --btn-bg: var(--dark-btn-bg);
+    --btn-hover: var(--dark-btn-hover);
+    --btn-active: var(--dark-btn-active);
+    --operator-bg: var(--dark-operator-bg);
+    --equals-bg: var(--dark-equals-bg);
+    --shadow: var(--dark-shadow);
+    --glow: var(--dark-glow);
+}
+
+/* Apply Light Theme */
+body.light-theme {
+    --bg-primary: var(--light-bg-primary);
+    --bg-secondary: var(--light-bg-secondary);
+    --glass-bg: var(--light-glass-bg);
+    --glass-border: var(--light-glass-border);
+    --text-primary: var(--light-text-primary);
+    --text-secondary: var(--light-text-secondary);
+    --display-bg: var(--light-display-bg);
+    --btn-bg: var(--light-btn-bg);
+    --btn-hover: var(--light-btn-hover);
+    --btn-active: var(--light-btn-active);
+    --operator-bg: var(--light-operator-bg);
+    --equals-bg: var(--light-equals-bg);
+    --shadow: var(--light-shadow);
+    --glow: var(--light-glow);
+}
+
+/* ===================================
+   GLOBAL STYLES
+   =================================== */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    background: var(--bg-primary);
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+    transition: background 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    overflow-x: hidden;
+}
+
+.container {
+    width: 100%;
+    max-width: 450px;
+    position: relative;
+}
+
+/* ===================================
+   THEME TOGGLE
+   =================================== */
+.theme-toggle-wrapper {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    margin-bottom: 20px;
+}
+
+.theme-toggle,
+.sound-toggle {
+    position: relative;
+    display: inline-block;
+    width: 70px;
+    height: 34px;
+    cursor: pointer;
+}
+
+.theme-toggle input,
+.sound-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 34px;
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 15px var(--shadow);
+}
+
+.slider::before {
+    content: '';
+    position: absolute;
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 3px;
+    background: linear-gradient(135deg, #8b5cf6, #6366f1);
+    border-radius: 50%;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle input:checked+.slider::before {
+    transform: translateX(36px);
+    background: linear-gradient(135deg, #f59e0b, #f97316);
+}
+
+/* Theme toggle icons */
+.slider .icon {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 16px;
+    transition: opacity 0.3s ease;
+}
+
+.sun {
+    left: 8px;
+    opacity: 0;
+}
+
+.moon {
+    right: 8px;
+    opacity: 1;
+}
+
+.theme-toggle input:checked~.slider .sun {
+    opacity: 1;
+}
+
+.theme-toggle input:checked~.slider .moon {
+    opacity: 0;
+}
+
+/* Sound toggle icons */
+.sound-on {
+    left: 8px;
+    opacity: 1;
+}
+
+.sound-off {
+    right: 8px;
+    opacity: 0;
+}
+
+.sound-toggle input:checked~.slider .sound-on {
+    opacity: 0;
+}
+
+.sound-toggle input:checked~.slider .sound-off {
+    opacity: 1;
+}
+
+/* ===================================
+   CALCULATOR CONTAINER
+   =================================== */
+.calculator {
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border: 1px solid var(--glass-border);
+    border-radius: 24px;
+    padding: 24px;
+    box-shadow:
+        0 8px 32px var(--shadow),
+        0 0 60px var(--glow),
+        inset 0 1px 0 rgba(255, 255, 255, 0.1);
+    transition: all 0.3s ease;
+}
+
+/* ===================================
+   DISPLAY
+   =================================== */
+.display {
+    position: relative;
+    background: var(--display-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 20px;
+    min-height: 100px;
+    box-shadow: inset 0 2px 10px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease;
+}
+
+.expression {
+    font-size: 16px;
+    color: var(--text-secondary);
+    min-height: 24px;
+    margin-bottom: 8px;
+    word-wrap: break-word;
+    opacity: 0.8;
+    transition: color 0.3s ease;
+}
+
+.result {
+    font-size: 36px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: right;
+    word-wrap: break-word;
+    transition: color 0.3s ease;
+}
+
+.copy-btn {
+    position: absolute;
+    top: 12px;
+    right: 12px;
+    background: var(--btn-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 8px;
+    padding: 8px;
+    cursor: pointer;
+    color: var(--text-primary);
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.copy-btn:hover {
+    background: var(--btn-hover);
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.copy-btn:active {
+    transform: scale(0.95);
+}
+
+/* ===================================
+   CALCULATOR CONTROLS
+   =================================== */
+.calculator-controls {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 16px;
+}
+
+.mode-toggle-btn,
+.history-btn {
+    flex: 1;
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 12px 16px;
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    box-shadow: 0 2px 8px var(--shadow);
+}
+
+.mode-toggle-btn .icon,
+.history-btn .icon {
+    font-size: 18px;
+    display: inline-block;
+    line-height: 1;
+}
+
+.mode-toggle-btn .text,
+.history-btn .text {
+    display: inline-block;
+    line-height: 1;
+}
+
+.mode-toggle-btn:hover,
+.history-btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.mode-toggle-btn:active,
+.history-btn:active {
+    transform: translateY(0) scale(0.98);
+}
+
+.mode-toggle-btn.active {
+    background: var(--operator-bg);
+    box-shadow: 0 4px 15px var(--glow);
+}
+
+/* ===================================
+   SCIENTIFIC BUTTONS SECTION
+   =================================== */
+.scientific-buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin-bottom: 16px;
+    max-height: 0;
+    overflow: hidden;
+    opacity: 0;
+    transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.scientific-buttons.active {
+    max-height: 500px;
+    opacity: 1;
+    margin-bottom: 16px;
+}
+
+/* ===================================
+   BUTTON GRID
+   =================================== */
+.buttons {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+}
+
+.btn {
+    background: var(--btn-bg);
+    backdrop-filter: blur(10px);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 18px;
+    font-size: 18px;
+    font-weight: 500;
+    color: var(--text-primary);
+    cursor: pointer;
+    transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    box-shadow:
+        0 4px 8px var(--shadow),
+        0 1px 3px rgba(0, 0, 0, 0.1),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.4);
+    transform: translate(-50%, -50%);
+    transition: width 0.5s, height 0.5s;
+}
+
+.btn:active::before {
+    width: 300px;
+    height: 300px;
+}
+
+.btn:hover {
+    background: var(--btn-hover);
+    transform: translateY(-2px);
+    box-shadow:
+        0 8px 16px var(--shadow),
+        0 3px 6px rgba(0, 0, 0, 0.15),
+        inset 0 1px 0 rgba(255, 255, 255, 0.4),
+        inset 0 -1px 0 rgba(0, 0, 0, 0.05);
+}
+
+.btn:active {
+    transform: translateY(1px) scale(0.98);
+    box-shadow:
+        0 2px 4px var(--shadow),
+        inset 0 1px 2px rgba(0, 0, 0, 0.1);
+}
+
+/* Button Variants */
+.btn.operator {
+    background: var(--operator-bg);
+    font-weight: 600;
+}
+
+.btn.equals {
+    grid-column: span 3;
+    background: var(--equals-bg);
+    color: white;
+    font-weight: 700;
+    font-size: 24px;
+    box-shadow: 0 4px 15px var(--glow);
+}
+
+.btn.equals:hover {
+    box-shadow: 0 6px 25px var(--glow);
+}
+
+.btn.clear {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    font-weight: 600;
+}
+
+.btn.backspace {
+    background: var(--operator-bg);
+    font-size: 20px;
+}
+
+.btn.memory {
+    background: var(--operator-bg);
+    font-size: 14px;
+    font-weight: 600;
+}
+
+.btn.function {
+    font-size: 16px;
+}
+
+.btn.constant {
+    font-size: 20px;
+    font-weight: 600;
+}
+
+
+
+/* ===================================
+   HISTORY PANEL
+   =================================== */
+.history-panel {
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 100%;
+    max-width: 400px;
+    height: 100vh;
+    background: var(--glass-bg);
+    backdrop-filter: blur(20px);
+    border-left: 1px solid var(--glass-border);
+    box-shadow: -8px 0 32px var(--shadow);
+    transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+}
+
+.history-panel.active {
+    right: 0;
+}
+
+.history-header {
+    padding: 24px;
+    border-bottom: 1px solid var(--glass-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.history-header h3 {
+    color: var(--text-primary);
+    font-size: 24px;
+    font-weight: 600;
+}
+
+.clear-history-btn {
+    background: linear-gradient(135deg, #ef4444, #dc2626);
+    color: white;
+    border: none;
+    border-radius: 8px;
+    padding: 8px 16px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+}
+
+.clear-history-btn:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(239, 68, 68, 0.4);
+}
+
+.history-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 16px;
+}
+
+.empty-history {
+    text-align: center;
+    color: var(--text-secondary);
+    padding: 40px 20px;
+    font-size: 16px;
+}
+
+.history-item {
+    background: var(--btn-bg);
+    border: 1px solid var(--glass-border);
+    border-radius: 12px;
+    padding: 16px;
+    margin-bottom: 12px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    animation: slideIn 0.3s ease;
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateX(20px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+.history-item:hover {
+    background: var(--btn-hover);
+    transform: translateX(-4px);
+    box-shadow: 0 4px 12px var(--shadow);
+}
+
+.history-item .expression {
+    font-size: 14px;
+    color: var(--text-secondary);
+    margin-bottom: 4px;
+}
+
+.history-item .result {
+    font-size: 20px;
+    font-weight: 600;
+    color: var(--text-primary);
+    text-align: left;
+}
+
+/* Custom Scrollbar */
+.history-list::-webkit-scrollbar {
+    width: 8px;
+}
+
+.history-list::-webkit-scrollbar-track {
+    background: var(--bg-secondary);
+    border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb {
+    background: var(--glass-border);
+    border-radius: 4px;
+}
+
+.history-list::-webkit-scrollbar-thumb:hover {
+    background: var(--btn-hover);
+}
+
+/* ===================================
+   RESPONSIVE DESIGN
+   =================================== */
+@media (max-width: 768px) {
+    .container {
+        max-width: 100%;
+    }
+
+    .calculator {
+        padding: 16px;
+    }
+
+    .display {
+        padding: 16px;
+        min-height: 80px;
+    }
+
+    .result {
+        font-size: 28px;
+    }
+
+    .expression {
+        font-size: 14px;
+    }
+
+    .btn {
+        padding: 14px;
+        font-size: 16px;
+    }
+
+    .btn.equals {
+        font-size: 20px;
+    }
+
+    .buttons {
+        gap: 8px;
+    }
+
+    .history-panel {
+        max-width: 100%;
+    }
+}
+
+@media (max-width: 480px) {
+    body {
+        padding: 10px;
+    }
+
+    .calculator {
+        padding: 12px;
+        border-radius: 20px;
+    }
+
+    .display {
+        padding: 12px;
+        min-height: 70px;
+    }
+
+    .result {
+        font-size: 24px;
+    }
+
+    .expression {
+        font-size: 12px;
+    }
+
+    .btn {
+        padding: 12px;
+        font-size: 14px;
+        border-radius: 10px;
+    }
+
+    .btn.function,
+    .btn.memory {
+        font-size: 12px;
+    }
+
+    /* ===================================
+   COPYRIGHT FOOTER
+   =================================== */
+    .copyright {
+        text-align: center;
+        margin-top: 20px;
+        padding: 10px;
+        background: transparent;
+        color: var(--text-secondary);
+        font-size: 12px;
+        opacity: 0.7;
+        transition: all 0.3s ease;
+        border-top: 1px solid var(--glass-border);
+    }
+
+    .copyright:hover {
+        opacity: 1;
+        color: var(--text-primary);
+    }
+
+    .btn.equals {
+        font-size: 18px;
+    }
+
+    .buttons {
+        gap: 6px;
+    }
+}
+
+/* ===================================
+   ANIMATIONS & EFFECTS
+   =================================== */
+@keyframes glow {
+
+    0%,
+    100% {
+        box-shadow: 0 0 20px var(--glow);
+    }
+
+    50% {
+        box-shadow: 0 0 40px var(--glow);
+    }
+}
+
+.btn.equals:hover {
+    animation: glow 2s infinite;
+}
+
+/* Keyboard Press Effect */
+.btn.pressed {
+    transform: scale(0.95);
+    background: var(--btn-active);
+}
+
+/* Error State */
+.display.error .result {
+    color: #ef4444;
+    animation: shake 0.5s;
+}
+
+@keyframes shake {
+
+    0%,
+    100% {
+        transform: translateX(0);
+    }
+
+    25% {
+        transform: translateX(-10px);
+    }
+
+    75% {
+        transform: translateX(10px);
+    }
+}

@@ -1,0 +1,146 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Premium Scientific Calculator with Dark/Light Mode">
+    <title>QuantumCalc - Scientific Calculator</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body class="dark-theme">
+    <div class="container">
+        <!-- Theme Toggle -->
+        <div class="theme-toggle-wrapper">
+            <label class="theme-toggle">
+                <input type="checkbox" id="themeToggle">
+                <span class="slider">
+                    <span class="icon sun">☀️</span>
+                    <span class="icon moon">🌙</span>
+                </span>
+            </label>
+            <label class="sound-toggle" title="Toggle sound effects">
+                <input type="checkbox" id="soundToggle" checked>
+                <span class="slider">
+                    <span class="icon sound-on">🔊</span>
+                    <span class="icon sound-off">🔇</span>
+                </span>
+            </label>
+        </div>
+
+        <!-- Calculator -->
+        <div class="calculator">
+            <!-- Display -->
+            <div class="display">
+                <div class="expression" id="expression"></div>
+                <div class="result" id="result">0</div>
+                <button class="copy-btn" id="copyBtn" title="Copy result">
+                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <rect x="9" y="9" width="13" height="13" rx="2" ry="2"></rect>
+                        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"></path>
+                    </svg>
+                </button>
+            </div>
+
+            <!-- Calculator Controls -->
+            <div class="calculator-controls">
+                <button class="mode-toggle-btn" id="modeToggle">
+                    <span class="icon">🔬</span>
+                    <span class="text">Scientific</span>
+                </button>
+                <button class="history-btn" id="historyBtn">
+                    <span class="icon">📜</span>
+                    <span class="text">History</span>
+                </button>
+            </div>
+
+            <!-- Scientific Functions (Hidden by default) -->
+            <div class="scientific-buttons" id="scientificButtons">
+                <!-- Row 1: Memory Functions -->
+                <button class="btn memory" data-action="mc">MC</button>
+                <button class="btn memory" data-action="mr">MR</button>
+                <button class="btn memory" data-action="m+">M+</button>
+                <button class="btn memory" data-action="m-">M−</button>
+
+                <!-- Row 2: Scientific Functions -->
+                <button class="btn function" data-function="sin">sin</button>
+                <button class="btn function" data-function="cos">cos</button>
+                <button class="btn function" data-function="tan">tan</button>
+                <button class="btn function" data-function="log">log</button>
+
+                <!-- Row 3: More Scientific Functions -->
+                <button class="btn function" data-function="ln">ln</button>
+                <button class="btn function" data-function="sqrt">√</button>
+                <button class="btn constant" data-value="π">π</button>
+                <button class="btn constant" data-value="e">e</button>
+
+                <!-- Row 4: Powers and Special -->
+                <button class="btn function" data-function="x²">x²</button>
+                <button class="btn function" data-function="x³">x³</button>
+                <button class="btn function" data-function="x^y">x<sup>y</sup></button>
+                <button class="btn function" data-function="!">n!</button>
+            </div>
+
+            <!-- Basic Calculator Buttons -->
+            <div class="buttons">
+                <!-- Row 1: Clear, Brackets, Operations -->
+                <button class="btn clear" data-action="clear">C</button>
+                <button class="btn operator" data-value="(">(</button>
+                <button class="btn operator" data-value=")">)</button>
+                <button class="btn backspace" data-action="backspace">⌫</button>
+
+                <!-- Row 2: Numbers and Operations -->
+                <button class="btn number" data-value="7">7</button>
+                <button class="btn number" data-value="8">8</button>
+                <button class="btn number" data-value="9">9</button>
+                <button class="btn operator" data-value="÷">÷</button>
+
+                <!-- Row 3 -->
+                <button class="btn number" data-value="4">4</button>
+                <button class="btn number" data-value="5">5</button>
+                <button class="btn number" data-value="6">6</button>
+                <button class="btn operator" data-value="×">×</button>
+
+                <!-- Row 4 -->
+                <button class="btn number" data-value="1">1</button>
+                <button class="btn number" data-value="2">2</button>
+                <button class="btn number" data-value="3">3</button>
+                <button class="btn operator" data-value="-">−</button>
+
+                <!-- Row 5 -->
+                <button class="btn number" data-value="0">0</button>
+                <button class="btn number" data-value=".">.</button>
+                <button class="btn function" data-function="%">%</button>
+                <button class="btn operator" data-value="+">+</button>
+
+                <!-- Row 6: Sign Toggle and Equals -->
+                <button class="btn function" data-function="+/-">+/−</button>
+                <button class="btn equals" data-action="equals">=</button>
+            </div>
+
+            <!-- Copyright -->
+            <div class="copyright">
+                © 2025 Ashwani Rai. All rights reserved.
+            </div>
+        </div>
+
+        <!-- History Panel -->
+        <div class="history-panel" id="historyPanel">
+            <div class="history-header">
+                <h3>History</h3>
+                <button class="clear-history-btn" id="clearHistoryBtn">Clear All</button>
+            </div>
+            <div class="history-list" id="historyList">
+                <p class="empty-history">No calculations yet</p>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+
+</html>
